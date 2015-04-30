@@ -1,0 +1,665 @@
+<!--
+Iran PyCon 2015 - Extended Flaskr
+Author: Mohammad Amin Solhizadeh <amin.solhizadeh@gmail.com>
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--This one seems to work all the time, but really small on ipad-->
+    <!--<meta name="viewport" content="initial-scale=0.4">-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" media="all" href="theme/css/default.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+    <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+    <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+  </head>
+  <body style="opacity: 0">
+    <slides class="layout-widescreen">
+      <slide class="logoslide nobackground">
+	<article class="flexbox vcenter">
+	  <span><img src="images/python_logo.png"></span>
+	</article>
+      </slide>
+
+      <slide class="title-slide segue nobackground">
+	<aside class="gdbar"><img src="images/flask_logo.png"></aside>
+	<!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+	<hgroup class="auto-fadein">
+	  <h1 data-config-title><!-- populated from slide_config.json --></h1>
+	  <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+	  <p data-config-presenter><!-- populated from slide_config.json --></p>
+	</hgroup>
+      </slide>
+
+      <slide class="segue dark nobackground">
+	<aside class="gdbar"><img src="images/flask_logo.png"></aside>
+	<hgroup class="auto-fadein">
+	  <h2>Flask History</h2>
+	</hgroup>
+      </slide>
+      
+      <slide>
+	<hgroup>
+	  <h2>Flask History</h2>
+	</hgroup>
+	<article>
+	  <p>Flask evolution:</p>
+	  <ul class="build">
+            <li>
+	      <img src="images/jinja_logo.png" width="20%" class="reflect" alt="jinja_logo" title="Jinja"><br>
+	      Template engine for Python (2006)
+	    </li>
+	    <li>
+	      <img src="images/werkzeug_logo.png" width="10%" class="reflect" alt="werkzeug_logo" title="Werkzeug"><br>
+	      WSGI library for Python (2007)
+	    </li>
+	    <li>
+	      <img src="images/flask_logo.png" width="10%" class="reflect" alt="flask_logo" title="Flask"><br>
+	      A <b>Microframework</b> for Python based on good intentions (April 1, 2010)
+	    </li>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Founder of Flask</h2>
+	</hgroup>
+	<article>
+	  <div align="middle">
+	    <p>And the man behind all of these tools...</p>
+	    <img src="images/armin_ronacher.png" class="reflect" alt="armin_ronacher" title="Armin Ronacher"><br>
+	    <b>Armin Ronacher</b>
+	  </div>
+	</article>
+      </slide>
+
+      <slide class="segue dark nobackground">
+	<aside class="gdbar"><img src="images/flask_logo.png"></aside>
+	<hgroup class="auto-fadein">
+	  <h2>Application Overview</h2>
+	  <h3>Extended Flaskr</h3>
+	</hgroup>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>What Are We Going to Build?</h2>
+	</hgroup>
+	<article>
+	  <p>Something that can be named a <b>Microblog</b>!!</p>
+	  <img src="images/exflaskr_overview.png" width="80%" class="reflect" alt="exflaskr_overview" title="Extended Flaskr Overview">
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Application Setup</h2>
+	</hgroup>
+	<article class="smaller">
+	  <p>Clone the git repository:</p>
+	  <pre data-lang="shell">
+	    $ git clone https://github.com/mxamin/exflaskr-irpycon-2015.git
+	    $ cd exflaskr-irpycon-2015
+	  </pre>
+	  
+	  <p>Create a virtual environment:</p>
+	  <pre data-lang="shell">
+	    $ virtualenv venv
+	    $ source venv/bin/activate
+	    (venv) $ pip install -r requirements/production.txt
+	  </pre>
+
+	  <p>Initialize and run application:</p>
+	  <pre data-lang="shell">
+	    $ python manage.py initapp
+	    $ python manage.py runserver
+	  </pre>
+	</article>
+      </slide>
+
+      <slide class="segue dark nobackground">
+	<aside class="gdbar"><img src="images/flask_logo.png"></aside>
+	<hgroup class="auto-fadein">
+	  <h2>Flask Is Easy</h2>
+	  <h3>Can Be Made Up and Running With Just A Few Line of Codes</h3>
+	</hgroup>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Coding Flask for the First Time</h2>
+	</hgroup>
+	<article>
+	  <p>Step 1/5: Install Flask Install Flask in a virtual environment</p>
+	  <pre data-lang="shell">
+	    $ virtualenv venv
+	    $ source venv/bin/activate
+	    (venv) $ pip install flask
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Coding Flask for the First Time (cont'd)</h2>
+	</hgroup>
+	<article>
+	  <p>Step 2/5: Create an application instance</p>
+	  <pre class="prettyprint" data-lang="flask_is_easy.py">
+	    <b>from flask import Flask
+	    app = Flask(__name__)</b>
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Coding Flask for the First Time (cont'd)</h2>
+	</hgroup>
+	<article>
+	  <p>Step 3/5: Define route</p>
+	  <pre class="prettyprint" data-lang="flask_is_easy.py">
+	    from flask import Flask
+	    app = Flask(__name__)
+
+	    <b>@app.route('/')
+	    def index():
+	        return '&lt;h1&gt;Flask is Easy!&lt;/h1&gt;'</b>
+	  </pre>
+	</article>
+      </slide>
+      
+      <slide>
+	<hgroup>
+	  <h2>Coding Flask for the First Time (cont'd)</h2>
+	</hgroup>
+	<article>
+	  <p>Step 4/5: Start development server</p>
+	  <pre class="prettyprint" data-lang="flask_is_easy.py">
+	    from flask import Flask
+	    app = Flask(__name__)
+
+	    @app.route('/')
+	    def index():
+	        return '&lt;h1&gt;Flask is Easy!&lt;/h1&gt;'
+
+	    <b>if __name__=='__main__':
+	        app.run(debug=True)</b>
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Coding Flask for the First Time (cont'd)</h2>
+	</hgroup>
+	<article>
+	  <p>Step 5/5: Run as a normal Python script!</p>
+	  <pre data-lang="shell">
+	    (venv) $ python flask_is_easy.py
+	    * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+	    * Restarting with stat
+	  </pre>
+	</article>
+      </slide>
+ 
+      <slide class="segue dark nobackground">
+	<aside class="gdbar"><img src="images/flask_logo.png"></aside>
+	<hgroup class="auto-fadein">
+	  <h2>Project Template</h2>
+	</hgroup>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Large Applications Structure</h2>
+	  <h3>Recommonded by <a href="http://miguelgrinberg.com/">Miguel Grinberg</a></h3>
+	</hgroup>
+	<article>
+	  <pre>
+            |- exflaskr-irpycon-2015/        <-- project folder
+                |- app/                      <-- application folder
+                    |- main/                 <-- application blueprint
+                        |- views.py          <-- application routes
+                    |- static/               <-- static files
+                    |- templates/            <-- html files
+                    |- __init__.py           <-- application factory
+                    |- models.py             <-- database model
+                |- requirements/             <-- dependencies
+                |- tests/                    <-- unit tests package
+                |- venv/                     <-- virtual environment
+                |- config.py                 <-- configurations
+                |- manage.py                 <-- launch script
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Configurations</h2>
+	</hgroup>
+	<article class="smaller">
+	  <p>Application settings for <b>Development</b>, <b>Testing</b> and <b>Production</b> purposes</p>
+	  <pre class="prettyprint" data-lang="config.py">
+	    class Config(object):
+	        SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+
+	    class DevelopmentConfig(Config):
+	        DEBUG = True
+
+	    class TestingConfig(Config):
+	        TESTING = True
+
+	    class ProductionConfig(Config):
+	        pass
+
+	    config = {
+	        'development': DevelopmentConfig,
+	        'testing': TestingConfig,
+	        'production': ProductionConfig,
+	  
+	        'default': DevelopmentConfig
+	    }
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Application Factory</h2>
+	</hgroup>
+	<article>
+	  <p>Create and configure application instance</p>
+	  <pre class="prettyprint" data-lang="app/__init__.py">
+	    from flask import Flask, current_app
+	    from config import config
+
+	    def create_app(config_name):
+	        app = Flask(__name__)
+	        app.config.from_object(config[config_name])
+	        config[config_name].init_app(app)
+
+	        from .main import main as main_blueprint
+	        app.register_blueprint(main_blueprint)
+
+	        return app
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Blueprints</h2>
+	</hgroup>
+	<article>
+	  <p>Flask way of making application modular</p>
+	  <pre class="prettyprint" data-lang="app/main/__init__.py">
+	    from flask import Blueprint
+	    main = Blueprint('main', __name__)
+	    from . import views
+	  </pre>
+	  <pre class="prettyprint" data-lang="app/main/views.py">
+	    from . import main
+	    @main.route('/', methods=['GET', 'POST'])
+	    def index():
+	        return '&lt;h1&gt;Extended Flaskr is Working!&lt;/h1&gt;'
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Launch Script</h2>
+	</hgroup>
+	<article>
+	  <p>Flask-Script: Add command line support to Flask</p>
+	  <pre class="prettyprint" data-lang="manage.py">
+	    import os
+	    from flask.ext.script import Manager
+	    from app import create_app
+
+	    app = create_app(os.getenv('EXFLASKR_CONFIG') or 'default')
+	    manager = Manager(app)
+
+	    if __name__ == '__main__':
+	        manager.run()
+	  </pre>
+	  <pre data-lang="shell">
+	    (venv) $ python manage.py runserver
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Testing Module</h2>
+	</hgroup>
+	<article class="smaller">
+	  <p>Test module definition</p>
+	  <pre class="prettyprint" data-lang="tests/test_basics.py">
+	    import unittest
+	    from flask import current_app
+	    from app import create_app
+
+	    class BasicsTestCase(unittest.TestCase):
+	        def setUp(self):
+                    self.app = create_app('testing')
+                    self.app_context = self.app.app_context()
+                    self.app_context.push()
+
+	        def tearDown(self):
+                    self.app_context.pop()
+
+	        def test_app_exists(self):
+                    self.assertFalse(current_app is None)
+
+	        def test_app_is_testing(self):
+                    self.assertTrue(current_app.config['TESTING'])
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Testing Module (cont'd)</h2>
+	</hgroup>
+	<article>
+	  <p>Launch test module</p>
+	  <pre class="prettyprint" data-lang="manage.py">
+	    # ...
+	  
+            @manager.command
+            def test():
+                from subprocess import call
+                call(['nosetests', '-v',
+                      '--with-coverage', '--cover-package=app', '--cover-branches',
+                      '--cover-erase', '--cover-html', '--cover-html-dir=cover'])
+  	    # ...
+	  </pre>
+	  <pre data-lang="shell">
+	    (venv) $ python manage.py test
+	  </pre>
+	</article>
+      </slide>
+
+      <slide class="segue dark nobackground">
+	<aside class="gdbar"><img src="images/flask_logo.png"></aside>
+	<hgroup class="auto-fadein">
+	  <h2>Twitter Bootstrap Integration</h2>
+	</hgroup>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Add Some Style</h2>
+	</hgroup>
+	<article>
+	  <p>Flask-Bootstrap: Adds Bootstrap library features to our application</p>
+	  <pre class="prettyprint" data-lang="app/__init__.py">
+	    from flask.ext.bootstrap import Bootstrap
+	    bootstrap = Bootstrap()
+
+	    def create_app(config_name):
+	        # ...
+	        bootstrap.init_app(app)
+	        # ....
+	        return app
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Application Template</h2>
+	</hgroup>
+	<article>
+	  <p>Using Jinja2 template inheritance features</p>
+	  <!-- TODO: Fix following code color -->
+	  <pre class="prettyprint" data-lang="app/templates/index.html">
+	    {% extends "base.html" %}
+
+	    {% block page_content %}
+	        &lt;h1&gt;Extended Flaskr is Working!&lt;h1&gt;
+	    {% endblock %}
+	  </pre>
+	  <pre class="prettyprint" data-lang="app/main/views.py">
+	    from flask import render_template
+	    @main.route('/', methods=['GET', 'POST'])
+	    def index():
+	        return render_template('index.html')
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Links in Flask</h2>
+	</hgroup>
+	<article>
+	  <p><b>'url_for()'</b>: Flask use this function for file or even route reference</p>
+	  <pre class="prettyprint" data-lang="app/templates/base.html">
+	    ...
+	    &lt;a href="{{ url_for('main.index') }}"&gt;...&lt;/a&gt;
+	    ...
+	    &lt;link href="{{ url_for('static', filename='favicon.ico') }}" ...&gt;
+	  </pre>
+	</article>
+      </slide>
+
+      <slide class="segue dark nobackground">
+	<aside class="gdbar"><img src="images/flask_logo.png"></aside>
+	<hgroup class="auto-fadein">
+	  <h2>Database</h2>
+	</hgroup>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Flask-SQLAlchemy</h2>
+	  <h3>Another extention which integrates <b>SQLAlchemy</b> into Flask</h3>
+	</hgroup>
+	<article class="smaller">
+	  <p>One database for each configuration setting</p>
+	  <pre class="prettyprint" data-lang="config.py">
+	    basedir = os.path.abspath(os.path.dirname(__file__))
+	    class DevelopmentConfig(Config):
+                # ...
+                SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
+                                          'sqlite:///' + os.path.join(basedir,
+                                                                      'data-dev.sqlite')
+
+            class TestingConfig(Config):
+                # ...
+                SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
+                                          'sqlite:///' + os.path.join(basedir,
+                                                                      'data-test.sqlite')
+
+            class ProductionConfig(Config):
+                SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+                                          'sqlite:///' + os.path.join(basedir,
+                                                                      'data.sqlite')
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Flask-SQLAlchemy (cont'd)</h2>
+	</hgroup>
+	<article>
+	  <p>Initialize SQLAlchemy instance</p>
+	  <pre class="prettyprint" data-lang="app/__init__.py">
+	    from flask.ext.sqlalchemy import SQLAlchemy
+	    db = SQLAlchemy()
+	    def create_app(config_name):
+	        # ...
+	        db.init_app(app)
+	        # ...
+	        return app
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Flask-SQLAlchemy (cont'd)</h2>
+	</hgroup>
+	<article>
+	  <p>Create application database</p>
+	  <pre class="prettyprint" data-lang="manage.py">
+	    from app import db
+	    @manager.command
+	    def initapp():
+                db.create_all()
+                logging.info('Application initialization completed successfully.')
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Flask-SQLAlchemy (cont'd)</h2>
+	</hgroup>
+	<article>
+	  <p>Model definition</p>
+	  <pre class="prettyprint" data-lang="app/models.py">
+	    from app import db
+	    class Entry(db.Model):
+	        __tablename__ = 'entries'
+	        id = db.Column(db.Integer, primary_key=True)
+	        title = db.Column(db.String(64), nullable=False)
+	        text = db.Column(db.Text, nullable=False)
+	  </pre>
+	</article>
+      </slide>
+
+      <slide class="segue dark nobackground">
+	<aside class="gdbar"><img src="images/flask_logo.png"></aside>
+	<hgroup class="auto-fadein">
+	  <h2>Web Form</h2>
+	</hgroup>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Entry Form</h2>
+	</hgroup>
+	<article>
+	  <p><b>Flask-WTF</b>: By using this extenstion we can create different forms based on Python <b>WTForms</b> module</p>
+	  <pre class="prettyprint" data-lang="app/main/forms.py">
+	    
+	    from flask.ext.wtf import Form
+	    from wtforms import StringField, TextAreaField, SubmitField
+	    from wtforms.validators import DataRequired, Length
+	    class EntryForm(Form):
+	        title = StringField('Title', validators=[
+                    DataRequired(),
+                    Length(1, 64)
+	    ])
+	    text = TextAreaField('Text', validators=[DataRequired()])
+	    submit = SubmitField('Add')
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Route</h2>
+	</hgroup>
+	<article class="smaller">
+	  <p>Declare Entry form and validate its input data</p>
+	  <pre class="prettyprint" data-lang="app/main/views.py">
+	    from flask import render_template, flash
+	    from .forms import EntryForm
+	    from app import db
+	    from app.models import Entry
+	    @main.route('/', methods=['GET', 'POST'])
+	    def index():
+	        form = EntryForm()
+	        if form.validate_on_submit():
+                    entry = Entry(title=form.title.data,
+                    text=form.text.data)
+                    db.session.add(entry)
+                    db.session.commit()
+                    flash('Entry added successfully.')
+
+                    # clear form
+                    form.title.data = None
+                    form.text.data = None
+
+	        entries = Entry.query.all()
+	        return render_template('index.html', form=form, entries=entries)
+	  </pre>
+	</article>
+      </slide>
+
+      <slide>
+	<hgroup>
+	  <h2>Template</h2>
+	</hgroup>
+	<article class="smaller">
+	  <p>Add <b>CSRF</b> token and view Entry form with added entries below it</p>
+	  <pre class="prettyprint" data-lang="config.py">
+	    # ...
+	    class Config(object):
+	        # ...
+	        SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard_to_guess_string'
+	        # ...
+	  </pre>
+	  <pre class="prettyprint" data-lang="app/templates/index.html">
+	    {% extends "base.html" %}
+	    {% import "bootstrap/wtf.html" as wtf %}
+
+	    {% block page_content %}
+	        {{ wtf.quick_form(form)}}
+	        &lt;br&gt;
+	        &lt;ul&gt;
+	        {% for entry in entries %}
+	            &lt;li&gt;&lt;h3&gt;{{ entry.title }}&lt;/h3&gt;{{ entry.text|safe }}&lt;/li&gt;
+	            {% else %}
+	            &lt;li&gt;&lt;em&gt;Unbelievable.  No entries here so far&lt;/em&gt;&lt/li&gt;
+	        {% endfor %}
+	        &lt;/ul&gt;
+	    {% endblock %}
+	  </pre>
+	</article>
+      </slide>
+
+      <slide class="thank-you-slide segue nobackground">
+	<aside class="gdbar right"><img src="images/flask_logo.png"></aside>
+	<article class="flexbox vleft auto-fadein">
+	  <h2>Thank You</h2>
+	</article>
+	<p class="auto-fadein" data-config-contact>
+	  <!-- populated from slide_config.json -->
+	</p>
+      </slide>
+      
+      <slide class="backdrop"></slide>
+    </slides>
+
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    
+    <!--[if IE]>
+	<script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+	<script>CFInstall.check({mode: 'overlay'});</script>
+    <![endif]-->
+  </body>
+</html>
